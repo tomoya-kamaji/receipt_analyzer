@@ -1,0 +1,18 @@
+{
+  "name": "receipt-analyzer",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@google-cloud/vision": "^4.3.3",
+    "csv-writer": "^1.6.0",
+    "dotenv": "^16.4.7",
+    "heic-convert": "^2.1.0",
+    "sharp": "^0.33.5"
+  }
+}
