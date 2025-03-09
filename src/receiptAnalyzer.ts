@@ -102,17 +102,24 @@ export class ReceiptAnalyzer {
     return receipts;
   }
 
-  // 単純なCSV形式で保存（id,text形式）
-  saveAsCsv(receipts: Receipt[], outputPath: string): void {
+  // 改行を削除したシンプルなCSV形式の出力
+  saveSimpleCsv(receipts: Receipt[], outputPath: string): void {
     let csvContent = "id,text\n";
 
     receipts.forEach((receipt) => {
+      // 改行を半角スペースに置換し、連続する空白を単一のスペースにまとめる
+      const cleanedText = receipt.text
+        .replace(/\n/g, " ") // 改行を半角スペースに変換
+        .replace(/\r/g, "") // キャリッジリターンを削除
+        .replace(/\s+/g, " ") // 連続する空白を1つにまとめる
+        .trim(); // 前後の余分な空白を削除
+
       // CSVエスケープ処理（ダブルクォートの処理）
-      const escapedText = receipt.text.replace(/"/g, '""');
+      const escapedText = cleanedText.replace(/"/g, '""');
       csvContent += `${receipt.id},"${escapedText}"\n`;
     });
 
     fs.writeFileSync(outputPath, csvContent, "utf8");
-    console.log(`CSVファイルを出力しました: ${outputPath}`);
+    console.log(`シンプルCSVファイルを出力しました: ${outputPath}`);
   }
 }

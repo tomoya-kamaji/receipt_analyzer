@@ -11,7 +11,7 @@ async function main() {
   try {
     // 入出力パスを設定
     const directoryPath = "./receipts";
-    const outputPath = "./output/receipts_raw.csv";
+    const outputPath = `./output/receipts_${new Date().toISOString().replace(/[:.]/g, '-')}.csv`;
 
     // 出力ディレクトリが存在することを確認
     const outputDir = path.dirname(outputPath);
@@ -29,7 +29,7 @@ async function main() {
 
     // 結果を出力
     if (receipts.length > 0) {
-      analyzer.saveAsCsv(receipts, outputPath);
+      analyzer.saveSimpleCsv(receipts, outputPath);
       console.log(`処理完了: ${receipts.length}件の領収書を解析しました`);
     } else {
       console.log("処理された領収書はありません");
